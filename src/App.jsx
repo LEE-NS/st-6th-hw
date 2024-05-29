@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import List from "./components/List";
 
 // TODO: 콘솔창을 확인해보고 input 타이핑할 때 마다
@@ -18,15 +18,17 @@ const App = () => {
   };
 
   const filteredItems = items.filter((item) =>
-    item.toLocaleLowerCase().includes("item"),
+    item.toLocaleLowerCase().includes("item")
   );
+
+  const filteredItemsOnMemo = useMemo(() => filteredItems, [items]);
 
   return (
     <div>
       <h1>Item List</h1>
       <input type="text" value={input} onChange={handleInputChange} />
       <button onClick={addItem}>Add Item</button>
-      <List items={filteredItems} />
+      <List items={filteredItemsOnMemo} />
     </div>
   );
 };
